@@ -1,35 +1,48 @@
-import { useState } from "react";
-import "./App.css";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState } from "react";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import Host from "./components/Login/Host";
+import Player from "./components/Login/Player";
+import Welcome from "./components/Login/Welcome";
+import Room from "./components/Room";
 
-function App() {
-  const [count, setCount] = useState<number>(0);
+const App: React.FC = () => {
+  const [roomId, setRoomId] = useState<string | null>(null);
+  const [host, setHost] = useState<string>("");
+
+  const handleCreateRoom = async (hostName: string) => {
+    setHost(hostName);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div style={{ padding: "20px" }}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route
+            path="/host"
+            element={<Host onCreateRoom={handleCreateRoom} />}
+          />
+          <Route path="/player" element={<Player />} />
+          {/* Only navigate to Room if roomId is available */}
+          <Route
+            path="/room"
+            element={
+              roomId ? (
+                <Room roomId={roomId} host={host} />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          />
+        </Routes>
+      </Router>
+    </div>
   );
-}
+};
 
 export default App;
