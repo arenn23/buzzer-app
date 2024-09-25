@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 interface RoomProps {
-  roomId: string;
-  host: string;
+  roomId: string | null;
+  name: string | null;
 }
 
-const Room: React.FC<RoomProps> = ({ roomId, host }) => {
+const Room: React.FC<RoomProps> = ({ roomId, name }) => {
   const [players, setPlayers] = useState<{ name: string; time: Date }[]>([]);
   const [buzzOrder, setBuzzOrder] = useState<{ name: string; time: Date }[]>(
     []
   );
 
+  console.log(players);
+  console.log(buzzOrder);
+
   const fetchRoomData = async () => {
-    const response = await fetch(`http://localhost:5000/api/rooms/${roomId}`);
+    const response = await fetch(`api/rooms/${roomId}`);
     const data = await response.json();
     setPlayers(data.players);
     setBuzzOrder(data.buzzOrder);
@@ -24,10 +27,13 @@ const Room: React.FC<RoomProps> = ({ roomId, host }) => {
     }
   }, [roomId]);
 
+  if (!roomId) return <>Loading...</>;
+  if (!name) return <>Loading...</>;
+
   return (
     <div>
       <h1>Room: {roomId}</h1>
-      <h2>Host: {host}</h2>
+      <h2>Name: {name}</h2>
       {/* Add your buttons and lists here */}
     </div>
   );

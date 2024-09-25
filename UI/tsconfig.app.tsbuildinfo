@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/room.tsx","./src/components/welcome.tsx"],"version":"5.6.2"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/room.tsx","./src/components/login/host.tsx","./src/components/login/player.tsx","./src/components/login/welcome.tsx"],"version":"5.6.2"}

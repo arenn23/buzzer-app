@@ -1,17 +1,43 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface HostProps {
-  onCreateRoom: (hostName: string) => void;
+  setRoomId: (roomId: string) => void;
+  setName: (name: string) => void;
 }
 
-const Host: React.FC<HostProps> = ({ onCreateRoom }) => {
+const Host: React.FC<HostProps> = ({ setRoomId, setName }) => {
   const [hostName, setHostName] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleCreateRoom = async (hostName: string) => {
+    try {
+      const response = await fetch("/api/rooms/create", {
+        method: "POST",
+        body: JSON.stringify({ host: hostName }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const { roomId } = await response.json();
+      setRoomId(roomId);
+      setName(hostName);
+    } catch (error) {
+      console.error("Failed to create room:", error);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (hostName.trim()) {
-      onCreateRoom(hostName); // Call the callback with the host's name
+      handleCreateRoom(hostName);
     }
+    navigate("/room");
   };
 
   return (
