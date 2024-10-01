@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Player: React.FC = () => {
   const [roomId, setRoomId] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleJoinRoom = async (e: React.FormEvent) => {
@@ -23,7 +24,8 @@ const Player: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        setError(`Error: ${response.status} ${await response.text()}`);
+        return;
       }
 
       navigate(`/room?roomId=${roomId}&name=${name}`);
@@ -37,6 +39,12 @@ const Player: React.FC = () => {
       <div className="form-container">
         <h1 className="title">Join a Room</h1>
         <form className="form" onSubmit={handleJoinRoom}>
+          {error && (
+            <>
+              <div style={{ color: "red" }}>There was an error</div>
+              <div style={{ color: "red" }}>{error}</div>
+            </>
+          )}
           <input
             type="text"
             placeholder="Enter Room ID"
