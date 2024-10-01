@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Room } from "../../../server/src/models/Room";
+import { Room } from "../../../src/models/Room";
 import "../styles.css";
 
 const RoomView: React.FC = () => {
