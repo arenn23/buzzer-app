@@ -33,25 +33,31 @@ const Player: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Join a Room</h1>
-      <form onSubmit={handleJoinRoom}>
-        <input
-          type="text"
-          placeholder="Enter Room ID"
-          value={roomId}
-          onChange={(e) => setRoomId(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <button type="submit">Join Room</button>
-      </form>
+    <div className="container">
+      <div className="form-container">
+        <h1 className="title">Join a Room</h1>
+        <form className="form" onSubmit={handleJoinRoom}>
+          <input
+            type="text"
+            placeholder="Enter Room ID"
+            value={roomId}
+            onChange={(e) => setRoomId(e.target.value)}
+            required
+            className="input"
+          />
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="input"
+          />
+          <button className="button" type="submit">
+            Join Room
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -4,10 +4,11 @@ import Host from "./components/Login/Host";
 import Player from "./components/Login/Player";
 import Welcome from "./components/Login/Welcome";
 import RoomView from "./components/RoomView";
+import "./styles.css";
 
 const App: React.FC = () => {
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="app-container">
       <Router>
         <Routes>
           <Route path="/" element={<Welcome />} />

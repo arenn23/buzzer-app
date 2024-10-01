@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../styles.css";
 
 const Host: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -31,18 +32,23 @@ const Host: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Host a Room</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <button type="submit">Create Room</button>
-      </form>
+    <div className="container">
+      <div className="form-container">
+        <h1 className="title">Host a Room</h1>
+        <form onSubmit={handleSubmit} className="form">
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="input"
+          />
+          <button type="submit" className="button">
+            Create Room
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

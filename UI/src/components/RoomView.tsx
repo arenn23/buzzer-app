@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Room } from "../../../server/src/models/Room";
+import "../styles.css";
 
 const RoomView: React.FC = () => {
   const [room, setRoom] = useState<Room | null>(null);
@@ -61,7 +62,7 @@ const RoomView: React.FC = () => {
         console.error("Failed to clear the room");
       }
     } catch (error) {
-      console.error("Error buzzing the room:", error);
+      console.error("Error clearing the room:", error);
     }
   };
 
@@ -80,11 +81,27 @@ const RoomView: React.FC = () => {
   if (!room) return <>Loading...</>;
 
   return (
-    <div>
-      <h1>Room: {roomId}</h1>
-      <h2>Name: {name}</h2>
-      <button onClick={buzz}>Buzz Room</button>
-      {name === room.host && <button onClick={clearBuzz}>Clear</button>}
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div>
+        <h3 style={{ margin: "5px" }}>Room: {roomId}</h3>
+      </div>
+      <div>
+        <h3 style={{ margin: "5px" }}>Name: {name}</h3>
+      </div>
+      <div style={{ padding: "10px" }}>
+        <button onClick={buzz} className="buzz-button">
+          Buzz
+        </button>
+        {name === room.host && (
+          <button
+            style={{ marginLeft: "10px" }}
+            onClick={clearBuzz}
+            className="button"
+          >
+            Clear
+          </button>
+        )}
+      </div>
       {room.buzzOrder.length > 0 && (
         <table>
           <thead>
