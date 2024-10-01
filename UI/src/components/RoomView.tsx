@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Room } from "../../../server/src/models/Room";
 
-interface RoomProps {
-  roomId: string | null;
-  name: string | null;
-}
-
-const RoomView: React.FC<RoomProps> = ({ roomId, name }) => {
+const RoomView: React.FC = () => {
   const [room, setRoom] = useState<Room | null>(null);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const roomId = searchParams.get("roomId");
+  const name = searchParams.get("name");
+
+  if (!roomId || !name) {
+    throw new Error("Could not find room or name");
+  }
 
   const fetchRoomData = async () => {
     const response = await fetch(`api/rooms/${roomId}`);
@@ -73,9 +77,7 @@ const RoomView: React.FC<RoomProps> = ({ roomId, name }) => {
     return diff;
   };
 
-  if (!roomId || !name || !room) return <>Loading...</>;
-
-  console.log(name === room.host);
+  if (!room) return <>Loading...</>;
 
   return (
     <div>
