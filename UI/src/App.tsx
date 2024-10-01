@@ -3,7 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Host from "./components/Login/Host";
 import Player from "./components/Login/Player";
 import Welcome from "./components/Login/Welcome";
-import Room from "./components/Room";
+import RoomView from "./components/RoomView";
 
 const App: React.FC = () => {
   const [roomId, setRoomId] = useState<string | null>(null);
@@ -22,7 +22,10 @@ const App: React.FC = () => {
             path="/player"
             element={<Player setRoomId={setRoomId} setName={setName} />}
           />
-          <Route path="/room" element={<Room roomId={roomId} name={name} />} />
+          <Route
+            path="/room"
+            element={<RoomView roomId={roomId} name={name} />}
+          />
         </Routes>
       </Router>
     </div>
