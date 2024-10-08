@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import roomRoutes from "./routers/roomRoutes";
+import roomRoutes from "./routers/roomRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;

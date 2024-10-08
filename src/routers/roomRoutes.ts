@@ -1,5 +1,5 @@
 import express from "express";
-import { Room } from "../models/Room";
+import { Room } from "../models/Room.js";
 
 const router = express.Router();
 const rooms: Record<string, Room> = {};
